@@ -1,7 +1,7 @@
-import SignIn from './pages/SignIn';
+import Root from './routes';
 
 function App() {
-  return <SignIn />;
+  return <Root />;
 }
 
 export default App;

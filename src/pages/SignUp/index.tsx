@@ -15,6 +15,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOffOutlined';
 import Logo from '@assets/logos/logo.svg';
 import MicrosoftLogo from '@assets/logos/microsoft.svg';
 import GoogleLogo from '@assets/logos/google.svg';
+import { Link } from 'react-router-dom';
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -40,6 +41,7 @@ const SignUp = () => {
           <OutlinedInput
             id="password"
             placeholder="Password"
+            type='password'
             size="small"
             className="text-sm py-1"
             endAdornment={
@@ -90,9 +92,15 @@ const SignUp = () => {
           </Button>
           <Typography variant="subtitle2" className="text-center my-4">
             Already have an account?{' '}
-            <Typography variant="subtitle2" component="span" color="secondary">
-              Sign In
-            </Typography>
+            <Link to="/signin">
+              <Typography
+                variant="subtitle2"
+                component="span"
+                color="secondary"
+              >
+                Sign In
+              </Typography>
+            </Link>
           </Typography>
           <Typography variant="subtitle2" className="text-center">
             By continuing you agree to our Terms of Services and{' '}

@@ -15,6 +15,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOffOutlined';
 import Logo from '@assets/logos/logo.svg';
 import MicrosoftLogo from '@assets/logos/microsoft.svg';
 import GoogleLogo from '@assets/logos/google.svg';
+import { Link } from 'react-router-dom';
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -25,7 +26,7 @@ const SignIn = () => {
 
   return (
     <Box className="absolute bg-circle bg-contain bg-no-repeat w-full">
-      <Paper className="flex flex-col items-center w-2/3 lg:w-1/2 xl:w-1/3 mx-auto mt-20 p-11 rounded-xl shadow-md">
+      <Paper className="flex flex-col items-center w-3/5 lg:w-1/2 xl:w-1/3 mx-auto mt-20 p-11 rounded-xl shadow-md">
         <Logo />
         <Typography className="self-start font-manrope font-medium text-xl my-5">
           Welcome Back, <br />
@@ -41,6 +42,7 @@ const SignIn = () => {
           <OutlinedInput
             id="password"
             placeholder="Password"
+            type='password'
             size="small"
             className="text-sm py-1"
             endAdornment={
@@ -97,9 +99,15 @@ const SignIn = () => {
           </Button>
           <Typography variant="subtitle2" className="text-center mt-6">
             Don't have an account?{' '}
-            <Typography variant="subtitle2" component="span" color="secondary">
-              Sign Up
-            </Typography>
+            <Link to="/signup">
+              <Typography
+                variant="subtitle2"
+                component="span"
+                color="secondary"
+              >
+                Sign Up
+              </Typography>
+            </Link>
           </Typography>
         </Box>
       </Paper>
