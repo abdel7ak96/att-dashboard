@@ -12,9 +12,9 @@ import {
 } from '@mui/material';
 import Visibility from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOff from '@mui/icons-material/VisibilityOffOutlined';
-import Logo from '../../assets/logos/logo.svg';
-import MicrosoftLogo from '../../assets/logos/microsoft.svg';
-import GoogleLogo from '../../assets/logos/google.svg';
+import Logo from '@assets/logos/logo.svg';
+import MicrosoftLogo from '@assets/logos/microsoft.svg';
+import GoogleLogo from '@assets/logos/google.svg';
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
