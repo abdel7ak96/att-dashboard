@@ -9,6 +9,12 @@ export default {
       fontFamily: {
         manrope: ['Manrope'],
       },
+      colors: {
+        'primary': '#7635DC',
+        'accentPurple': '#E9DAFF',
+        'accentLightPurple': '#F4F2FA',
+        'textLight': '#657582',
+      },
     },
   },
   plugins: [],
