@@ -24,7 +24,7 @@ const Layout = ({
 
       {/* AppBar */}
       <Box className="w-full">
-        <Box className="bg-red-400 h-8 w-full">{appBar}</Box>
+        <Box className="w-full">{appBar}</Box>
         {children}
       </Box>
     </Box>
