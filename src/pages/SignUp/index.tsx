@@ -16,7 +16,7 @@ import Logo from '../../assets/logos/logo.svg';
 import MicrosoftLogo from '../../assets/logos/microsoft.svg';
 import GoogleLogo from '../../assets/logos/google.svg';
 
-const SignIn = () => {
+const SignUp = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const handleClickShowPassword = useCallback(() => {
@@ -25,11 +25,10 @@ const SignIn = () => {
 
   return (
     <Box className="absolute bg-circle bg-contain bg-no-repeat w-full">
-      <Paper className="flex flex-col items-center w-2/3 lg:w-1/2 xl:w-1/3 mx-auto mt-20 p-11 rounded-xl shadow-md">
+      <Paper className="flex flex-col items-center w-3/5 lg:w-1/2 xl:w-1/3 mx-auto mt-20 p-11 rounded-xl shadow-md">
         <Logo />
         <Typography className="self-start font-manrope font-medium text-xl my-5">
-          Welcome Back, <br />
-          Sign in to your account
+          Create your new account!
         </Typography>
         <FormControl className="w-full mt-3 gap-3" required>
           <OutlinedInput
@@ -56,21 +55,15 @@ const SignIn = () => {
               </InputAdornment>
             }
           />
-          <Typography
-            color="secondary"
-            className="text-xs font-medium self-end cursor-pointer hover:underline"
-          >
-            Reset Password
-          </Typography>
           <Button
             variant="contained"
             className="capitalize rounded-lg py-3 my-5"
           >
-            Sign in
+            Sign up
           </Button>
         </FormControl>
         <Box className="flex flex-col w-full gap-4">
-          <Box className="flex justify-between items-center">
+          <Box className="flex justify-between items-center my-2">
             <Divider className="w-2/5" />
             <Typography className="text-gray-400 text-sm font-semibold">
               Or
@@ -81,24 +74,30 @@ const SignIn = () => {
             variant="outlined"
             size="small"
             color="info"
-            className="capitalize gap-4 border-gray-200"
+            className="normal-case gap-4 border-gray-200"
           >
             <MicrosoftLogo />
-            Sign in with Microsoft
+            Sign up with Microsoft
           </Button>
           <Button
             variant="outlined"
             size="small"
             color="info"
-            className="capitalize gap-4 border-gray-200"
+            className="normal-case gap-4 border-gray-200"
           >
             <GoogleLogo />
-            Sign in with Google
+            Sign up with Google
           </Button>
-          <Typography variant="subtitle2" className="text-center mt-6">
-            Don't have an account?{' '}
+          <Typography variant="subtitle2" className="text-center my-4">
+            Already have an account?{' '}
             <Typography variant="subtitle2" component="span" color="secondary">
-              Sign Up
+              Sign In
+            </Typography>
+          </Typography>
+          <Typography variant="subtitle2" className="text-center">
+            By continuing you agree to our Terms of Services and{' '}
+            <Typography variant="subtitle2" color="secondary">
+              Privacy Policy
             </Typography>
           </Typography>
         </Box>
@@ -107,4 +106,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;
