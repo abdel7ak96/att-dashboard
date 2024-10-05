@@ -4,9 +4,11 @@ import { Box } from '@mui/material';
 const Layout = ({
   appBar,
   drawer,
+  children,
 }: {
   appBar: ReactElement;
   drawer: ReactElement;
+  children?: ReactElement;
 }) => {
   const [drawerOpen] = useState<boolean>(true);
   return (
@@ -21,7 +23,10 @@ const Layout = ({
       </Box>
 
       {/* AppBar */}
-      <Box className="bg-red-400 h-8 w-full">{appBar}</Box>
+      <Box className="w-full">
+        <Box className="bg-red-400 h-8 w-full">{appBar}</Box>
+        {children}
+      </Box>
     </Box>
   );
 };

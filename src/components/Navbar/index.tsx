@@ -20,7 +20,7 @@ const ITEMS = [
   {
     icon: (color?: string) => <Home color={color} />,
     label: 'Home',
-    path: '/dashboard',
+    path: '/home',
   },
   {
     icon: (color?: string) => <FileHourglass color={color} />,
