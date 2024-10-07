@@ -15,7 +15,7 @@ const Root = () => {
       <Route path="/signin" element={<SignInPage />} />
       <Route path="/signup" element={<SignUpPage />} />
       <Route path="/" element={<Dashboard />}>
-        <Route path="home" index element={<Home />} />
+        <Route index element={<Home />} />
         <Route path="activate-session" element={<ActivateSession />} />
         <Route path="finished-session" element={<FinishedSession />} />
         <Route path="assessment" element={<Assessment />} />

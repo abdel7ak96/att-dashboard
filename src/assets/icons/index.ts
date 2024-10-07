@@ -11,12 +11,16 @@ import FileValid from './FileValid';
 import CheckList from './CheckList';
 import Tag from './Tag';
 import Users from './Users';
+import Search from './search.svg';
+import Trash from './trash.svg';
 
 export {
   BarChart,
   Globe,
   Crescent,
   Bell,
+  Search,
+  Trash,
   Home,
   FileHourglass,
   FileValid,

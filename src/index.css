@@ -8,3 +8,7 @@
     src: url('assets/fonts/Manrope/Manrope-VariableFont_wght.ttf');
   }
 }
+
+body {
+  background-color: #F7F9FA;
+}
