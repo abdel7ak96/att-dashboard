@@ -9,10 +9,11 @@ import {
 import { Search as SearchIcon, Trash as TrashIcon } from '@assets/icons';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import theme from '@/providers/theme';
+import { useEffect, useState } from 'react';
 
 const columns: GridColDef[] = [
   {
-    field: 'fullname',
+    field: 'worker',
     headerName: 'Worker',
     editable: false,
     flex: 1,
@@ -24,7 +25,7 @@ const columns: GridColDef[] = [
     flex: 1,
   },
   {
-    field: 'startAt',
+    field: 'startedAt',
     headerName: 'Started at',
     editable: true,
     flex: 1,
@@ -54,18 +55,15 @@ const columns: GridColDef[] = [
   },
 ];
 
-const rows = [
-  {
-    id: 0,
-    fullname: 'Cameron Williamson',
-    recordedBy: 'Cameron Williamson',
-    startAt: 'Dec 30, 2019 07:52',
-    duration: '3 hours',
-    completedAt: 'Dec 30, 2019 07:52',
-  },
-];
-
 const ActivateSession = () => {
+  const [rows, setRows] = useState([]);
+
+  useEffect(() => {
+    fetch('/api/active-sessions')
+      .then((res) => res.json())
+      .then((res) => setRows(res.sessions));
+  }, []);
+
   return (
     <Container maxWidth="xl">
       <Typography component="h1" className="text-xl">
@@ -103,13 +101,12 @@ const ActivateSession = () => {
           initialState={{
             pagination: {
               paginationModel: {
-                pageSize: 5,
+                pageSize: 10,
               },
             },
           }}
-          pageSizeOptions={[5]}
+          pageSizeOptions={[10]}
           checkboxSelection
-          disableMultipleRowSelection
           disableRowSelectionOnClick
         />
       </Box>
