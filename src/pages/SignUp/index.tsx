@@ -3,13 +3,13 @@ import {
   Box,
   Button,
   Divider,
-  FormControl,
   IconButton,
   InputAdornment,
   OutlinedInput,
   Paper,
   Typography,
 } from '@mui/material';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import Visibility from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOff from '@mui/icons-material/VisibilityOffOutlined';
 import Logo from '@assets/logos/logo.svg';
@@ -17,8 +17,22 @@ import MicrosoftLogo from '@assets/logos/microsoft.svg';
 import GoogleLogo from '@assets/logos/google.svg';
 import { Link } from 'react-router-dom';
 
+type Inputs = {
+  email: string;
+  password: string;
+};
+
 const SignUp = () => {
+  const { register, handleSubmit } = useForm<Inputs>();
+
   const [showPassword, setShowPassword] = useState<boolean>(false);
+
+  const onSubmit: SubmitHandler<Inputs> = useCallback((data) => {
+    fetch('/api/sign-up', {
+      method: 'post',
+      body: JSON.stringify(data),
+    });
+  }, []);
 
   const handleClickShowPassword = useCallback(() => {
     setShowPassword((prev) => !prev);
@@ -31,17 +45,22 @@ const SignUp = () => {
         <Typography className="self-start font-manrope font-medium text-xl my-5">
           Create your new account!
         </Typography>
-        <FormControl className="w-full mt-3 gap-3" required>
+        <form
+          className="w-full flex flex-col mt-3 gap-3"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <OutlinedInput
             id="email"
+            type="text"
             placeholder="Email"
             size="small"
             className="text-sm py-1"
+            {...register('email')}
           />
           <OutlinedInput
             id="password"
             placeholder="Password"
-            type='password'
+            type="password"
             size="small"
             className="text-sm py-1"
             endAdornment={
@@ -56,14 +75,16 @@ const SignUp = () => {
                 </IconButton>
               </InputAdornment>
             }
+            {...register('password')}
           />
           <Button
             variant="contained"
             className="capitalize rounded-lg py-3 my-5"
+            type="submit"
           >
             Sign up
           </Button>
-        </FormControl>
+        </form>
         <Box className="flex flex-col w-full gap-4">
           <Box className="flex justify-between items-center my-2">
             <Divider className="w-2/5" />
@@ -90,7 +111,11 @@ const SignUp = () => {
             <GoogleLogo />
             Sign up with Google
           </Button>
-          <Typography variant="subtitle2" className="text-center my-4">
+          <Typography
+            component="h5"
+            variant="subtitle2"
+            className="text-center my-4"
+          >
             Already have an account?{' '}
             <Link to="/signin">
               <Typography
@@ -104,7 +129,7 @@ const SignUp = () => {
           </Typography>
           <Typography variant="subtitle2" className="text-center">
             By continuing you agree to our Terms of Services and{' '}
-            <Typography variant="subtitle2" color="secondary">
+            <Typography component="span" variant="subtitle2" color="secondary">
               Privacy Policy
             </Typography>
           </Typography>
