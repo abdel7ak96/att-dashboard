@@ -15,7 +15,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOffOutlined';
 import Logo from '@assets/logos/logo.svg';
 import MicrosoftLogo from '@assets/logos/microsoft.svg';
 import GoogleLogo from '@assets/logos/google.svg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 type Inputs = {
   email: string;
@@ -23,15 +23,18 @@ type Inputs = {
 };
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const { register, handleSubmit } = useForm<Inputs>();
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const onSubmit: SubmitHandler<Inputs> = useCallback((data) => {
-    fetch('/api/sign-up', {
+  const onSubmit: SubmitHandler<Inputs> = useCallback(async (data) => {
+    const response = await fetch('/api/sign-up', {
       method: 'post',
       body: JSON.stringify(data),
     });
+
+    if (response.status === 200) navigate('/sign-in');
   }, []);
 
   const handleClickShowPassword = useCallback(() => {

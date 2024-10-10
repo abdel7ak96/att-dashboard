@@ -14,8 +14,9 @@ import VisibilityOff from '@mui/icons-material/VisibilityOffOutlined';
 import Logo from '@assets/logos/logo.svg';
 import MicrosoftLogo from '@assets/logos/microsoft.svg';
 import GoogleLogo from '@assets/logos/google.svg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { userDataType } from '@/utils/types';
 
 type Inputs = {
   email: string;
@@ -23,15 +24,32 @@ type Inputs = {
 };
 
 const SignIn = () => {
+  const navigate = useNavigate();
   const { register, handleSubmit } = useForm<Inputs>();
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const onSubmit: SubmitHandler<Inputs> = useCallback((data) => {
-    fetch('/api/sign-in', {
+  const onSubmit: SubmitHandler<Inputs> = useCallback(async (data) => {
+    const response = await fetch('/api/sign-in', {
       method: 'post',
       body: JSON.stringify(data),
     });
-  }, []);
+
+    if (response.status === 200) {
+      const userData: userDataType = await response.json();
+      localStorage.setItem('authToken', userData.token);
+      localStorage.setItem(
+        'userData',
+        JSON.stringify({ id: userData.id, email: userData.email })
+      );
+      navigate("/");
+    } else {
+      const error = await response.json();
+      console.log(
+        '🚀 ~ constonSubmit:SubmitHandler<Inputs>=useCallback ~ error:',
+        error
+      );
+    }
+  }, [navigate]);
 
   const handleClickShowPassword = useCallback(() => {
     setShowPassword((prev) => !prev);
@@ -59,7 +77,7 @@ const SignIn = () => {
           <OutlinedInput
             id="password"
             placeholder="Password"
-            type="password"
+            type={!showPassword ? "password" : "text"}
             size="small"
             className="text-sm py-1"
             endAdornment={

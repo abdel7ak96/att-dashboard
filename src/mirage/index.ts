@@ -2,7 +2,9 @@ import { createServer, Response } from 'miragejs';
 import factories from './factories';
 import models from './models';
 import bcrypt from 'bcryptjs';
-import { SignJWT } from 'jose';
+import { jwtVerify, SignJWT } from 'jose';
+
+const SECRET_KEY = new Uint8Array([0, 1, 2]);
 
 export async function makeServer({ environment = 'test' }) {
   return createServer({
@@ -54,9 +56,22 @@ export async function makeServer({ environment = 'test' }) {
           jti: user.email,
         })
           .setProtectedHeader({ alg: 'HS256' })
-          .sign(new Uint8Array([0, 1, 2]));
+          .sign(SECRET_KEY);
 
         return new Response(200, {}, { id: user.id, email: user.email, token });
+      });
+
+      this.post('verify-token', async (_, request) => {
+        const attrs = JSON.parse(request.requestBody);
+        const authToken = attrs.authToken;
+
+        try {
+          await jwtVerify(authToken, SECRET_KEY);
+          return new Response(200);
+        } catch (error) {
+          console.log('Token is invalid', error);
+          return new Response(401);
+        }
       });
 
       this.get('active-sessions', () => {

@@ -57,7 +57,7 @@ const Navbar = () => {
       {ITEMS.map((item) => {
         const selected = item.path === pathname;
         return (
-          <Link to={item.path}>
+          <Link key={item.path} to={item.path}>
             <ListItem
               disablePadding
               className={`rounded-lg my-2 ${selected && 'bg-accentPurple'}`}
