@@ -3,24 +3,8 @@ import factories from './factories';
 import models from './models';
 import bcrypt from 'bcryptjs';
 import { SignJWT } from 'jose';
-import { subtle } from 'crypto';
-
-async function generateKey() {
-  const key = await subtle.generateKey(
-    {
-      name: 'HMAC',
-      hash: { name: 'SHA-256' },
-    },
-    true, // whether the key is extractable
-    ['sign', 'verify'] // key usages
-  );
-
-  return key;
-}
 
 export async function makeServer({ environment = 'test' }) {
-  const secretKey = await generateKey();
-
   return createServer({
     environment,
     factories,
@@ -45,19 +29,34 @@ export async function makeServer({ environment = 'test' }) {
           jti: newUser.email,
         })
           .setProtectedHeader({ alg: 'HS256' })
-          .sign(secretKey);
+          .sign(new Uint8Array([0, 1, 2]));
 
-        return new Response(200, { token });
+        return new Response(
+          200,
+          {},
+          { id: newUser.id, email: newUser.email, token }
+        );
       });
 
-      this.post('sign-in', () => {
-        /**
-         * TODO: Implement
-         * search for existing user with email on the data layer
-         * hash password and compare it to the hash stored
-         * if it matches generate a JWT and send it back
-         */
-        return 0;
+      this.post('sign-in', async (_, request) => {
+        const attrs = JSON.parse(request.requestBody);
+        const user = this.schema.findBy('user', { email: attrs.email });
+
+        if (
+          !user ||
+          (user.password &&
+            !(await bcrypt.compare(attrs.password, user.password)))
+        ) {
+          return new Response(501, {}, { error: 'Wrong credentials' });
+        }
+
+        const token = await new SignJWT({
+          jti: user.email,
+        })
+          .setProtectedHeader({ alg: 'HS256' })
+          .sign(new Uint8Array([0, 1, 2]));
+
+        return new Response(200, {}, { id: user.id, email: user.email, token });
       });
 
       this.get('active-sessions', () => {

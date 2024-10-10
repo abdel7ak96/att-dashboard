@@ -40,7 +40,7 @@ const SignUp = () => {
 
   return (
     <Box className="absolute bg-circle bg-contain bg-no-repeat w-full">
-      <Paper className="flex flex-col items-center w-3/5 lg:w-1/2 xl:w-1/3 mx-auto mt-20 p-11 rounded-xl shadow-md">
+      <Paper className="flex flex-col items-center w-3/5 lg:w-1/2 xl:w-1/3 mx-auto my-20 p-11 rounded-xl shadow-md">
         <Logo />
         <Typography className="self-start font-manrope font-medium text-xl my-5">
           Create your new account!
@@ -75,7 +75,7 @@ const SignUp = () => {
                 </IconButton>
               </InputAdornment>
             }
-            {...register('password')}
+            {...register('password', { required: true, minLength: 8 })}
           />
           <Button
             variant="contained"
