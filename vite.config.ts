@@ -25,4 +25,12 @@ export default defineConfig({
       include: '**/*.svg',
     }),
   ],
+  // vitest config
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //@ts-expect-error
+  test: {
+    globals: true,
+    environment: "jsdom",
+    setupFiles: "./src/__tests__/setup.ts",
+  },
 });
