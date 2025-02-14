@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
-import SignInPage from '@pages/SignIn';
-import SignUpPage from '@pages/SignUp';
+import SignInPage from '@/pages/SignIn';
+import SignUpPage from '@/pages/SignUp';
 import Dashboard from '@/pages/Dashboard';
 import ActivateSession from '@/pages/ActivateSession';
 import FinishedSession from '@/pages/FinishedSession';
