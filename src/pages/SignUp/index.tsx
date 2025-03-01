@@ -63,7 +63,7 @@ const SignUp = () => {
           <OutlinedInput
             id="password"
             placeholder="Password"
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             size="small"
             className="text-sm py-1"
             endAdornment={
